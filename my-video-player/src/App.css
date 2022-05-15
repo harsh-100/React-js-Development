@@ -1,0 +1,13 @@
+.App {
+  text-align: center;
+}
+
+.myItem{
+  background-color: lightseagreen !important;
+  color:aliceblue !important;
+  font-size: 20px;
+}
+.myItem:hover{
+  
+  font-size: 36px;
+}

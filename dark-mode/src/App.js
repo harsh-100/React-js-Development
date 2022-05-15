@@ -7,7 +7,19 @@ function App() {
   //To make the state same afer refreshing the page 
   //I have used the useEffect hook for this 
   const getMode = ()=>{
-    return JSON.parse(localStorage.getItem("mode")) || false
+
+   const initialMode= localStorage.getItem("mode");
+   if(initialMode==null){
+     if(window.matchMedia("(prefers-color-scheme:dark)").matches){
+       return true
+     }
+     else{
+       return false
+     }
+   }
+   else{
+     return JSON.parse(initialMode);
+   }
   }
   const [dark, setdark] = useState(getMode());
  
