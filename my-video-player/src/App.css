@@ -9,5 +9,11 @@
 }
 .myItem:hover{
   
-  font-size: 36px;
+  font-size: 16px;
+}
+iframe{
+  content: flex;
+  width: 100% !important;
+  height: 90% !important;
+  
 }
