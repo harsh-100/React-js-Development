@@ -2,12 +2,13 @@ import React,{useState,useEffect} from 'react';
 import Axios from 'axios';
 import '../App.css';
 import {Link,useParams} from 'react-router-dom';   //i have used the 'useParams to get the URL as prop in react route dom'
-//https://youtube.googleapis.com/youtube/v3/playlists?part=contentDetails%2Csnippet&id=PLu0W_9lII9agx66oZnT6IyhcMIbUMNMdt&maxResults=15&key=AIzaSyBMMIWS3LM_0wsHepwHl1rfjRrZvnZ0cuc
-//https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet%2CcontentDetails&maxResults=10&playlistId=PLu0W_9lII9agx66oZnT6IyhcMIbUMNMdt&key=[YOUR_API_KEY]
+import API_KEY from './api_key.js'
+
+
+
 function Course() {
   let {courseName } = useParams();
   const [courses,setCourses]= useState([]);
-
   const getCourse = ()=>{
     let playlistid = ""
 
@@ -17,10 +18,10 @@ function Course() {
     else{
       playlistid = "PLwGdqUZWnOp00IbeN0OtL9dmnasipZ9x8"
     }
-    Axios.get(`https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet%2CcontentDetails&maxResults=10&playlistId=${playlistid}&key=AIzaSyBMMIWS3LM_0wsHepwHl1rfjRrZvnZ0cuc`)
+   
+    Axios.get(`https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet%2CcontentDetails&maxResults=10&playlistId=${playlistid}&key=${API_KEY}`)
     .then((response)=>{
-      console.log(response.data.items)
-       const results = response.data.items.map(item=>{
+         const results = response.data.items.map(item=>{
          return {
            title:item.snippet.title,
            vid : item.contentDetails.videoId
@@ -37,18 +38,6 @@ function Course() {
    
   }, []);
 
-  // const courses = {
-  //   reactjs:[
-  //     {title:"Reactjs Lecture 1",vid:"QFaFIcGhPoM"},
-  //     {title:"Reactjs Lecture 2",vid:"9hb_0TZ_MVI"},
-  //     {title:"Reactjs Lecture 3",vid:"9VIiLJL0H4Y"}
-  //   ],
-  //   nodejs:[
-  //     {title:"Nodejs Lecture 1",vid:"YFmgNiimfyk"},
-  //     {title:"Nodejs Lecture 2",vid:"eSh1FZDJEWU"},
-  //     {title:"Nodejs Lecture 3",vid:"ALzoL4c4yGA"}
-  //   ]
-  // }
 
   const [vid, setVid] = useState("")
   const [title, setTitle] = useState("")
@@ -72,10 +61,7 @@ function Course() {
               </h1>
                   {renderVideo()}
               <div class="collection">
-                  {/* <a href="#!" className="collection-item">Alvin</a>
-                  <a href="#!" className="collection-item ">Alvin</a>
-                  <a href="#!" className="collection-item">Alvin</a>
-                  <a href="#!" className="collection-item">Alvin</a> */}
+                  
                 {
                   courses.map((item,index)=>{
                   return   <a href="#!" className={counter==index?"collection-item myItem ":"collection-item"} onClick={()=>
